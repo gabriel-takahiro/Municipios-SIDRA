@@ -183,8 +183,11 @@ def main():
     df_indicadores = pd.DataFrame(indicadores)
     df_dados = busca_sidra(dados)
 
-    script_dir = os.path.dirname(os.path.realpath(__file__))
-    output_dir = os.path.join(script_dir, '..', 'Dados')
+    output_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'Dados')
+    # Verifica se o diretório existe
+    if not os.path.exists(output_dir):
+        # Se não existe, cria o diretório
+        os.makedirs(output_dir)
 
     df_dados.to_csv(os.path.join(output_dir, 'dados_sidra.csv'), sep=';', index=False)
     df_indicadores.to_csv(os.path.join(output_dir, 'indicadores.csv'), sep=';', index=False)
